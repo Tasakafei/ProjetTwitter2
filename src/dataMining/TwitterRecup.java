@@ -2,8 +2,6 @@ package dataMining;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-
 import twitter4j.Query;
 import twitter4j.QueryResult;
 import twitter4j.Status;
@@ -35,24 +33,8 @@ public class TwitterRecup {
 		// Creation d'un objet Twitter
 		Twitter twitter = TwitterFactory.getSingleton();
 		try {
-<<<<<<< HEAD
-<<<<<<< HEAD
-			
-			while (Contenu.size()< MAX) {
-				result = twitter.search(query);
-				Contenu.addAll(result.getTweets());
-				do {
-					query=result.nextQuery();
-				}while(result.hasNext() == false);
-			}
-=======
 			long maxID = -1;
 			int nbTweets = 0;
->>>>>>> 4851718693cd0f8d8a9aba4f15a2ae6bb4939c71
-=======
-			long maxID = -1;
-			int nbTweets = 0;
->>>>>>> 4851718693cd0f8d8a9aba4f15a2ae6bb4939c71
 			File file = new File(Sujet + ".csv");
 			System.out.println("fichier crée");
 			file.createNewFile();
