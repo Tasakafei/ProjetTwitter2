@@ -45,16 +45,20 @@ public class Phase1_TRANStoCSV {
             token2 = Integer.parseInt(stringTokenizer.nextToken());
             hashMap.put(token1, token2);
         } //collection remplie
-        
+        System.out.println("hey je suis là");
         //comparons notre trans au dico pour transcrire en csv
+        Integer cpt = 0;
         while((line = brTrans.readLine()) != null) {
+        	System.out.println(cpt++);
             stringTokenizer = new StringTokenizer(line, " ");
             while(stringTokenizer.hasMoreTokens()){
                 token2 = Integer.parseInt(stringTokenizer.nextToken());
                 strCsv += getKeyByValue(hashMap,token2);
                 if (stringTokenizer.hasMoreTokens())
                 	strCsv += ";";
+                
             }
+           
            bwcsv.write(strCsv);
            bwcsv.newLine();
         }
