@@ -4,12 +4,7 @@ import java.util.HashMap;
 import java.util.StringTokenizer;
 
 public class Phase1_2 {
-    private String csvPath;
-    public Phase1_2(String csvPath) {
-        this.csvPath = csvPath;
-    }
-
-    public void generateTransFile(String transPath) throws IOException {
+    public static void generateTransFile(String transPath, String csvPath) throws IOException {
         File file = new File(csvPath);
         BufferedReader bufferedReader = new BufferedReader( new FileReader(file) );
         File transFile = new File(transPath);
@@ -24,7 +19,7 @@ public class Phase1_2 {
         while((line = bufferedReader.readLine()) != null) {
             stringTokenizer = new StringTokenizer(line, ";");
             // on récupère ainsi notre ligne découpé par les ;
-            // étant donné que toutes nos données ont des "text" il n'y a pas besoin de les traiter
+            // étant donné que toutes nos données ont des "[...]" il n'y a pas besoin de les traiter
             while(stringTokenizer.hasMoreTokens()){
                 token = stringTokenizer.nextToken().toUpperCase();
                 if(!hashMap.containsKey(token)) {
@@ -43,5 +38,15 @@ public class Phase1_2 {
         fw.flush();
         fw.close();
         bufferedReader.close();
+    }
+    public static void main(String[] args) throws IOException {
+    	if ( 2 != args.length) {
+			System.out.println("Erreur : nombre d'arguments invalide\nArguments attendus : CheminInCSV CheminOutTrans");
+			return;
+		}
+    	String csvPath = args[0];
+    	String transPath = args[1];
+    	generateTransFile(transPath,csvPath);
+    	
     }
 }
