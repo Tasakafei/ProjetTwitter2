@@ -11,7 +11,7 @@ import twitter4j.TwitterFactory;
 
 public class TwitterRecup {
 // test !!!!	
-	private final static int MAX =101;
+	private final static int MAX =2; //nombre itérations
 	// la fonction clean text permet de respecter le format demande par nedseb
 	public static String cleanText(String text){
 		// on remplace les espaces par ";" en sachant que l'on rajoutera un " au dernier

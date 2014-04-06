@@ -54,14 +54,16 @@ public class Phase1_TRANStoCSV {
             while(stringTokenizer.hasMoreTokens()){
                 token2 = Integer.parseInt(stringTokenizer.nextToken());
                 strCsv += getKeyByValue(hashMap,token2);
-                if (stringTokenizer.hasMoreTokens())
+                if (stringTokenizer.hasMoreTokens()){
                 	strCsv += ";";
-                
+                }else{
+                	strCsv+= '\n';
+                }
             }
            
-           bwcsv.write(strCsv);
-           bwcsv.newLine();
+           
         }
+        bwcsv.write(strCsv);
         bwcsv.flush();
         bwcsv.close();
         brTrans.close();
