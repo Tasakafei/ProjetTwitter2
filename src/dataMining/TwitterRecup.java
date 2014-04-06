@@ -13,6 +13,7 @@ import twitter4j.TwitterFactory;
 
 public class TwitterRecup {
 // test !!!!	
+	private final static int MAX =10000;
 	// la fonction clean text permet de respecter le format demande par nedseb
 	public static String cleanText(String text){
 		// on remplace les espaces par ";" en sachant que l'on rajoutera un " au dernier
@@ -38,13 +39,13 @@ public class TwitterRecup {
 	    ArrayList<Status> Contenu = new ArrayList<Status>();
 		try {
 			
-			while (Contenu.size()< 10000 ) {
+			while (Contenu.size()< MAX) {
 				result = twitter.search(query);
 				Contenu.addAll(result.getTweets());
-				query=result.nextQuery();
-				
+				while(result.hasNext() == false){
+				query=result.nextQuery();}
 			}
-			File file = new File("D:\\" + Sujet + ".csv");
+			File file = new File(Sujet + ".csv");
 			System.out.println("fichier crée");
 			file.createNewFile();
 			FileWriter fw = new FileWriter(file);
