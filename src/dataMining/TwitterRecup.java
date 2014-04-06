@@ -13,14 +13,14 @@ import twitter4j.TwitterFactory;
 
 public class TwitterRecup {
 // test !!!!	
-	private final static int MAX =10000;
+	private final static int MAX =101;
 	// la fonction clean text permet de respecter le format demande par nedseb
 	public static String cleanText(String text){
 		// on remplace les espaces par ";" en sachant que l'on rajoutera un " au dernier
 		text = text.replaceAll("[\"';,\\.\\n\\r]", "");
 		text = text.trim();
 		text = text.replace(" ", "\";\"");
-		return text; 
+		return text;
 	}
 	
 	public static void main(String[] args) throws IOException {
@@ -33,48 +33,60 @@ public class TwitterRecup {
 		
 		// Creation d'un objet Twitter
 		Twitter twitter = TwitterFactory.getSingleton();
-		Query query = new Query(Sujet);
-		query.setCount(100);
-	    QueryResult result = null;
-	    ArrayList<Status> Contenu = new ArrayList<Status>();
 		try {
+<<<<<<< HEAD
 			
 			while (Contenu.size()< MAX) {
 				result = twitter.search(query);
 				Contenu.addAll(result.getTweets());
-				while(result.hasNext() == false){
-				query=result.nextQuery();}
+				do {
+					query=result.nextQuery();
+				}while(result.hasNext() == false);
 			}
+=======
+			long maxID = -1;
+			int nbTweets = 0;
+>>>>>>> 4851718693cd0f8d8a9aba4f15a2ae6bb4939c71
 			File file = new File(Sujet + ".csv");
 			System.out.println("fichier crée");
 			file.createNewFile();
 			FileWriter fw = new FileWriter(file);
-			
-			for(Status tweet : Contenu) {
-				String monTweet;
-				// On traite les données et on respect le format demande par nedseb
-				monTweet = "\"" + tweet.getId() + "\";\"" 
-						+ tweet.getCreatedAt() + "\";\"" 
-						+ tweet.getUser().getLocation() + "\";\"@"
-						+ tweet.getUser().getScreenName()+ "\";\""
-						+ tweet.getFavoriteCount() + "\";\""
-						+ tweet.getRetweetCount() + "\";\""
-						+ cleanText(tweet.getText()) + "\"\n";
+			for (int queryNumber=0;queryNumber < MAX; queryNumber++) {
 				
-				// On ecrit dans le fichier via le filewriter qui l'a ouvert	
-				fw.write(monTweet);
-				// juste une petite verif de début de projet
-				System.out.println("modification du fichier : " + file.getPath());
-			}
+				Query query = new Query(Sujet);
+				query.setCount(100);
+				query.setLang("fr");
+				if (maxID != -1) { query.setMaxId(maxID - 1); }
+				QueryResult result = twitter.search(query);
+				if (result.getTweets().size() == 0) { break;}
+				
+				for(Status tweet : result.getTweets()){
+					if (maxID == -1 || tweet.getId() < maxID) { maxID = tweet.getId(); }
+					String monTweet;
+					++nbTweets;
+					// On traite les données et on respect le format demande par nedseb
+					monTweet = "\"" + tweet.getId() + "\";\"" 
+							+ tweet.getCreatedAt() + "\";\"" 
+							+ tweet.getUser().getLocation() + "\";\"@"
+							+ tweet.getUser().getScreenName()+ "\";\""
+							+ tweet.getFavoriteCount() + "\";\""
+							+ tweet.getRetweetCount() + "\";\""
+							+ cleanText(tweet.getText()) + "\"\n";
+					// On ecrit dans le fichier via le filewriter qui l'a ouvert	
+					fw.write(monTweet);
+					// juste une petite verif de début de projet
+				}
 		
-			fw.flush();
-			fw.close();
-			// on affiche le nombre de tweet que l'on a récolté dans contenu (normalement 10000 si aucune erreur)
-			System.out.println("Count : " + Contenu.size()) ;
+
+			}
+				fw.flush();
+				fw.close();
+				// on affiche le nombre de tweet que l'on a récolté dans contenu 
+				System.out.println("Count : " + nbTweets) ;
 		} catch (TwitterException e) {
 
 			e.printStackTrace();
 		}
 	}
- 
+
 }
