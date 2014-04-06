@@ -18,9 +18,10 @@ public class Phase1_2 {
         HashMap<String, Integer> hashMap = new HashMap<String, Integer>();
         while((line = bufferedReader.readLine()) != null) {
             stringTokenizer = new StringTokenizer(line, ";");
-            // on récupère ainsi notre ligne découpé par les ;
-            // étant donné que toutes nos données ont des "[...]" il n'y a pas besoin de les traiter
-            while(stringTokenizer.hasMoreTokens()){
+            /*
+             * Récup des parties et "remplissage" du "dictionnaire"
+             */
+                while(stringTokenizer.hasMoreTokens()){
                 token = stringTokenizer.nextToken().toUpperCase();
                 if(!hashMap.containsKey(token)) {
                     hashMap.put(token, hashMap.size() + 1);
