@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.StringTokenizer;
 
-public class Phase1_2 {
+public class Phase1_CSVtoTrans {
     public static void generateTransFile(String csvPath, String dicoPath, String transPath) throws IOException {
         // notre CSV
     	File file = new File(csvPath + ".csv");
@@ -38,7 +38,7 @@ public class Phase1_2 {
             }
             strTrans += "\n";
         }
-
+        // on enregistre notre collection dans un fichier pour la réutiliser sagement
         for(Entry<String, Integer> entry : hashMap.entrySet()) {
             String cle = entry.getKey();
             Integer valeur = entry.getValue();
