@@ -35,6 +35,7 @@ public class TwitterRecup {
 		Twitter twitter = TwitterFactory.getSingleton();
 		try {
 <<<<<<< HEAD
+<<<<<<< HEAD
 			
 			while (Contenu.size()< MAX) {
 				result = twitter.search(query);
@@ -43,6 +44,10 @@ public class TwitterRecup {
 					query=result.nextQuery();
 				}while(result.hasNext() == false);
 			}
+=======
+			long maxID = -1;
+			int nbTweets = 0;
+>>>>>>> 4851718693cd0f8d8a9aba4f15a2ae6bb4939c71
 =======
 			long maxID = -1;
 			int nbTweets = 0;
