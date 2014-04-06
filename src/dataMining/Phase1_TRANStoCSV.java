@@ -22,9 +22,9 @@ public class Phase1_TRANStoCSV {
 	public static void generateCSVFileFromTrans(String transPath, String dicoPath, String csvPath) throws IOException {
 		// notre CSV
     	File file = new File(csvPath + ".csv");
-    	if(!file.exists()) {
-            file.createNewFile();
-        }
+        file.createNewFile();
+        System.out.println("fichier csv crée");
+    
         BufferedWriter bwcsv = new BufferedWriter( new FileWriter(file) );
         // notre trans
         File transFile = new File(transPath + ".trans");
